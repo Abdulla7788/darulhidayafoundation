@@ -98,55 +98,53 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {[
               { 
+                id: 1,
                 img: "/campaign_food.jpeg", 
                 title: "Food Relay Node", 
                 desc: "Direct nutritional sustenance distribution for Mustahiq families.",
                 tag: "Essential Aid"
               },
               { 
+                id: 4,
                 img: "/campaign_build.jpeg", 
                 title: "Infrastructure Build", 
                 desc: "Creating permanent community assets and sustainable water systems.",
                 tag: "Sadaqah Jariyah"
               }
             ].map((item, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: i * 0.2 }}
-                viewport={{ once: true }}
-                className="group relative rounded-[3rem] overflow-hidden shadow-3xl bg-white border border-slate-100"
-              >
-                <div className="aspect-[16/10] overflow-hidden">
-                  <img 
-                    src={item.img} 
-                    alt={item.title} 
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
-                  />
-                  <div className="absolute inset-0 bg-emerald-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                    <div className="p-4 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 text-white font-bold text-xs uppercase tracking-widest">
-                      View Audit Log
-                    </div>
+              <Link href={`/causes/${item.id}`} key={i}>
+                <motion.div 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: i * 0.2 }}
+                  viewport={{ once: true }}
+                  className="group relative rounded-[3rem] overflow-hidden shadow-3xl bg-white border border-slate-100 h-full flex flex-col cursor-pointer"
+                >
+                  <div className="aspect-[16/10] overflow-hidden relative bg-slate-50 flex items-center justify-center">
+                    <img 
+                      src={item.img} 
+                      alt={item.title} 
+                      className="w-full h-full object-contain transition-transform duration-1000 group-hover:scale-105" 
+                    />
                   </div>
-                </div>
-                <div className="p-10">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-emerald-600 italic">
-                      {item.tag}
-                    </span>
-                    <div className="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center text-white shadow-xl">
-                      <ArrowRight className="w-4 h-4" />
+                  <div className="p-10 flex-1 flex flex-col">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-emerald-600 italic">
+                        {item.tag}
+                      </span>
+                      <div className="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center text-white shadow-xl group-hover:bg-emerald-600 transition-colors">
+                        <ArrowRight className="w-4 h-4" />
+                      </div>
                     </div>
+                    <h3 className="text-2xl font-heading font-bold text-slate-900 uppercase italic tracking-tight mb-3 group-hover:text-emerald-700 transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-slate-500 italic opacity-70 leading-relaxed font-medium">
+                      {item.desc}
+                    </p>
                   </div>
-                  <h3 className="text-2xl font-heading font-bold text-slate-900 uppercase italic tracking-tight mb-3">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-slate-500 italic opacity-70 leading-relaxed font-medium">
-                    {item.desc}
-                  </p>
-                </div>
-              </motion.div>
+                </motion.div>
+              </Link>
             ))}
           </div>
         </div>

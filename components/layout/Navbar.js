@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Menu, X, Globe, Home, ShieldCheck } from 'lucide-react';
+import { Heart, Menu, X, Globe, Home, ShieldCheck, Image as ImageIcon } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,6 +18,7 @@ const Navbar = () => {
 
   const navLinks = [
     { title: 'About Us', path: '/about' },
+    { title: 'Gallery', path: '/gallery', icon: ImageIcon },
     { title: 'Campaigns', path: '/causes', icon: Heart },
     { title: 'Donate', path: '/donate', icon: ShieldCheck },
     { title: 'Contact', path: '/contact' },

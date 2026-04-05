@@ -7,50 +7,54 @@ import Link from 'next/link';
 const campaigns = [
   {
     id: 1,
-    title: 'Zakat Distribution Node',
+    title: 'Sustainable Borewell Nodes',
     category: 'Essential Aid',
-    goal: '₹15,00,000',
-    desc: 'Our direct food distribution protocol ensures that your contributions reach the most eligible families (Mustahiq) in the Mattampally village node. We focus on providing high-quality monthly ration packets to ensure nutritional security for widows and orphans.',
-    image: '/campaign_food.jpeg',
+    goal: '₹12,00,000',
+    desc: 'The foundation has successfully implemented high-end borewell nodes across marginalized village sectors in Mattampally. These projects provided permanent clean water access to over 500 families, as evidenced by our recent ground-level inauguration nodes.',
+    image: '/gallery/pic1.jpeg',
     gallery: [
-      '/campaign_food.jpeg',
-      'https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=2070&auto=format&fit=crop',
+      '/gallery/pic1.jpeg',
+      '/gallery/pic5.jpeg',
+      '/gallery/pic8.jpeg',
     ]
   },
   {
     id: 2,
-    title: 'Islamic Education Fund',
-    category: 'Community Empowerment',
+    title: 'Community Infrastructure Hub',
+    category: 'Sadaqah Jariyah',
     goal: '₹20,00,000',
-    desc: 'This initiative funds local Madrassas and modern educational support for students in need. We provide books, infrastructure upgrades, and vocational training sessions to empower the next generation with both spiritual and professional excellence.',
-    image: 'https://images.unsplash.com/photo-1523050853063-da803f221495?q=80&w=2070&auto=format&fit=crop',
+    desc: 'Our infrastructure wing specializes in community-grade structural builds. From land leveling and foundation nodes to fully realized spiritual centers, we ensure every brick serves a purpose in building the future of the Suryapet district.',
+    image: '/gallery/pic10.jpeg',
     gallery: [
-      'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=2073&auto=format&fit=crop',
+      '/gallery/pic16.jpeg',
+      '/gallery/pic10.jpeg',
+      '/gallery/pic13.jpeg',
     ]
   },
   {
     id: 3,
-    title: 'Emergency Medical Relay',
-    category: 'Healthcare',
-    goal: '₹25,00,000',
-    desc: 'Our critical medical node provides urgent treatments and hospital coordination for marginalized families. We specialize in oncology-related aid and emergency trauma support to ensure no life is lost due to financial constraints in Suryapet district.',
-    image: 'https://images.unsplash.com/photo-1583324113626-70df0f4dacab?q=80&w=2072&auto=format&fit=crop',
+    title: 'Zakat Food Relay',
+    category: 'Essential Aid',
+    goal: '₹15,00,000',
+    desc: 'The Zakat Distribution Hub at Darulhidaya provides direct sustenance relay. We focus on providing high-quality monthly ration packets to widows and orphans in our operational village nodes, maintaining the dignity of each recipient.',
+    image: '/campaign_food.jpeg',
     gallery: [
-      'https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?q=80&w=2070&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1584515201114-6663583980bc?q=80&w=2070&auto=format&fit=crop',
+       '/campaign_food.jpeg',
+       '/gallery/pic3.jpeg',
+       '/gallery/pic14.jpeg',
     ]
   },
   {
     id: 4,
-    title: 'Sadaqah Jariyah Projects',
-    category: 'Infrastructure',
+    title: 'Islamic Education Hub',
+    category: 'Community Empowerment',
     goal: '₹10,00,000',
-    desc: 'Building permanent assets for the community, including sustainable water wells and mosque maintenance. Our current build projects focus on creating high-end, durable infrastructure that serves the village node for generations.',
-    image: '/campaign_build.jpeg',
+    desc: 'We support local Madrassas with premium infrastructure nodes and educational resources. Our focus is on maintaining high-end learning environments that foster both spiritual growth and modern vocational skills.',
+    image: '/gallery/pic12.jpeg',
     gallery: [
-      '/campaign_build.jpeg',
-      '/campaign_food.jpeg',
+       '/gallery/pic12.jpeg',
+       '/gallery/pic15.jpeg',
+       '/gallery/pic7.jpeg',
     ]
   }
 ];
@@ -106,11 +110,8 @@ export default function CauseDetail({ params }) {
             <h2 className="text-4xl font-heading font-extrabold text-slate-900 uppercase italic tracking-tighter border-b-4 border-slate-900 pb-6 inline-block">Impact Gallery</h2>
             <div className="grid grid-cols-1 gap-12">
                {cause.gallery.map((img, i) => (
-                 <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} className="aspect-[16/9] rounded-[4rem] overflow-hidden shadow-4xl group relative">
-                    <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Work" />
-                    <div className="absolute inset-0 bg-emerald-950/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                       <p className="px-8 py-4 bg-white/10 backdrop-blur-xl rounded-full text-white font-bold text-[10px] uppercase tracking-widest border border-white/20">Official Asset Log: {cause.id}-{i+1}</p>
-                    </div>
+                 <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} className="aspect-[16/9] rounded-[4rem] overflow-hidden shadow-4xl group relative bg-slate-50 flex items-center justify-center">
+                    <img src={img} className="w-full h-full object-contain transition-transform duration-700" alt="Work" />
                  </motion.div>
                ))}
             </div>

@@ -8,31 +8,31 @@ import { Heart, Zap, ShieldCheck } from 'lucide-react';
 const campaigns = [
   {
     id: 1,
-    title: 'Zakat Distribution Node',
+    title: 'Sustainable Borewell Nodes',
     category: 'Essential Aid',
-    image: '/campaign_food.jpeg',
-    desc: 'Direct food and ration distribution (Mustahiq) in Mattampally village node. Providing monthly sustenance for families in need.'
+    image: '/gallery/pic1.jpeg',
+    desc: 'Providing permanent clean water access to marginalized village nodes in Suryapet district through audit-certified borewell projects.'
   },
   {
     id: 2,
-    title: 'Islamic Education Fund',
-    category: 'Community Empowerment',
-    image: 'https://images.unsplash.com/photo-1523050853063-da803f221495?q=80&w=2070&auto=format&fit=crop',
-    desc: 'Supporting local Madrassas and vocational training centers to provide premium-grade knowledge and skills to the youth.'
+    title: 'Community Infrastructure Hub',
+    category: 'Sadaqah Jariyah',
+    image: '/gallery/pic10.jpeg',
+    desc: 'Developing permanent community assets, including site leveling and structural builds for long-term village empowerment.'
   },
   {
     id: 3,
-    title: 'Emergency Medical Relay',
-    category: 'Healthcare',
-    image: 'https://images.unsplash.com/photo-1583324113626-70df0f4dacab?q=80&w=2072&auto=format&fit=crop',
-    desc: 'Critical hospital coordination and funding for life-saving surgeries and chronic treatments for the marginalized.'
+    title: 'Zakat Food Relay',
+    category: 'Essential Aid',
+    image: '/campaign_food.jpeg',
+    desc: 'Direct, audit-certified food ration distribution provided to eligible families (Mustahiq) within our operational nodes.'
   },
   {
     id: 4,
-    title: 'Sadaqah Jariyah Projects',
-    category: 'Infrastructure',
-    image: '/campaign_build.jpeg',
-    desc: 'Building sustainable community infrastructure, including water systems and mosque maintenance for permanent benefits.'
+    title: 'Islamic Education Hub',
+    category: 'Community Empowerment',
+    image: '/gallery/pic12.jpeg',
+    desc: 'Funding high-end infrastructure maintenance and educational support for local Madrassas and spiritual centers.'
   }
 ];
 
@@ -64,8 +64,8 @@ export default function Causes() {
               viewport={{ once: true }}
               className="bg-white rounded-[4rem] overflow-hidden shadow-4xl group border border-slate-50 relative flex flex-col h-full"
             >
-              <div className="aspect-[4/3] overflow-hidden relative">
-                <img src={cause.image} alt={cause.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+              <div className="aspect-[4/3] overflow-hidden relative bg-slate-50 flex items-center justify-center">
+                <img src={cause.image} alt={cause.title} className="w-full h-full object-contain transition-transform duration-700" />
                 <div className="absolute top-8 left-8 px-6 py-2.5 bg-slate-900/40 backdrop-blur-3xl rounded-full text-white font-extrabold text-[10px] uppercase tracking-widest border border-white/10">
                   {cause.category}
                 </div>
