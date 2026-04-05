@@ -21,7 +21,7 @@ export default function GalleryPage() {
              <Camera className="w-3 h-3 text-emerald-500" />
              <span>Visual Audit Repository</span>
           </div>
-          <h1 className="text-7xl font-heading font-extrabold text-slate-900 uppercase italic tracking-tighter leading-none mb-8">
+          <h1 className="text-5xl md:text-7xl font-heading font-extrabold text-slate-900 uppercase italic tracking-tighter leading-none mb-8">
             Impact <span className="text-emerald-700">Gallery</span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg text-slate-500 font-sans italic opacity-80 border-l-4 border-emerald-600 pl-8 py-2">

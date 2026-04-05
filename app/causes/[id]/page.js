@@ -74,7 +74,7 @@ export default function CauseDetail({ params }) {
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
              <p className="text-emerald-500 font-bold uppercase tracking-[0.4em] text-xs mb-8 italic">MISSION INTEL: {cause.category}</p>
-             <h1 className="text-8xl font-heading font-extrabold text-white uppercase italic tracking-tighter leading-none mb-12 drop-shadow-2xl">
+             <h1 className="text-5xl md:text-8xl font-heading font-extrabold text-white uppercase italic tracking-tighter leading-none mb-12 drop-shadow-2xl">
                 {cause.title}
              </h1>
 

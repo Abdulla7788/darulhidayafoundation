@@ -26,7 +26,7 @@ export default function Home() {
                 <span>Foundation in Action</span>
               </div>
               
-              <h1 className="text-7xl font-heading text-slate-900 leading-[1.1] mb-8 uppercase italic tracking-tighter drop-shadow-sm">
+              <h1 className="text-5xl md:text-7xl font-heading text-slate-900 leading-[1.1] mb-8 uppercase italic tracking-tighter drop-shadow-sm">
                 Nurturing <span className="text-emerald-700 relative italic">Hope
                   <svg className="absolute -bottom-3 left-0 w-full h-6 text-emerald-500/10 -z-10" viewBox="0 0 100 20" preserveAspectRatio="none">
                     <path d="M0 10 Q 50 0 100 10" stroke="currentColor" strokeWidth="12" fill="none" strokeLinecap="round" />
