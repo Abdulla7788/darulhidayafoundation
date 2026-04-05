@@ -9,16 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@netlify/plugin-nextjs": "^5.15.9",
+    "bcryptjs": "^2.4.3",
+    "clsx": "^2.1.0",
+    "framer-motion": "^11.0.8",
+    "jose": "^5.2.2",
+    "lucide-react": "^0.344.0",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
-    "framer-motion": "^11.0.8",
-    "lucide-react": "^0.344.0",
-    "zod": "^3.22.4",
-    "jose": "^5.2.2",
-    "bcryptjs": "^2.4.3",
-    "clsx": "^2.1.0",
-    "tailwind-merge": "^2.2.1"
+    "tailwind-merge": "^2.2.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
