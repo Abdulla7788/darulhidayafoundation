@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-heading: 'Playfair Display', serif;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-quote: 'Cormorant Garamond', serif;
+}
+
+body {
+  @apply bg-white text-slate-900 font-sans leading-relaxed;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-heading font-extrabold tracking-tight;
+}
+
+.glass {
+  @apply bg-white/10 backdrop-blur-3xl border border-white/20;
+}
+
+.glass-dark {
+  @apply bg-slate-900/10 backdrop-blur-3xl border border-white/10;
+}
+
+.btn-premium {
+  @apply bg-slate-900 text-white hover:bg-emerald-800 transition-all duration-500 shadow-2xl hover:-translate-y-2 uppercase tracking-widest italic;
+}
+
+.shadow-3xl {
+  box-shadow: 0 40px 100px -30px rgba(0, 0, 0, 0.15);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-50;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-900 rounded-full hover:bg-emerald-700 transition-colors;
+}
+
+/* 🛡️ SECURITY: Prevent user-selection on sensitive UI patterns */
+.no-select {
+  user-select: none;
+}
