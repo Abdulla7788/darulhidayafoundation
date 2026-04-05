@@ -118,13 +118,13 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: i * 0.2 }}
                   viewport={{ once: true }}
-                  className="group relative rounded-[3rem] overflow-hidden shadow-3xl bg-white border border-slate-100 h-full flex flex-col cursor-pointer"
+                  className="group relative rounded-3xl overflow-hidden shadow-3xl bg-white border border-slate-100 h-full flex flex-col cursor-pointer"
                 >
-                  <div className="aspect-[16/10] overflow-hidden relative bg-slate-50 flex items-center justify-center">
+                  <div className="aspect-[16/10] overflow-hidden relative">
                     <img 
                       src={item.img} 
                       alt={item.title} 
-                      className="w-full h-full object-contain transition-transform duration-1000 group-hover:scale-105" 
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
                     />
                   </div>
                   <div className="p-10 flex-1 flex flex-col">

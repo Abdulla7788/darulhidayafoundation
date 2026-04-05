@@ -64,8 +64,8 @@ export default function Causes() {
               viewport={{ once: true }}
               className="bg-white rounded-[4rem] overflow-hidden shadow-4xl group border border-slate-50 relative flex flex-col h-full"
             >
-              <div className="aspect-[4/3] overflow-hidden relative bg-slate-50 flex items-center justify-center">
-                <img src={cause.image} alt={cause.title} className="w-full h-full object-contain transition-transform duration-700" />
+              <div className="aspect-[4/3] overflow-hidden relative">
+                <img src={cause.image} alt={cause.title} className="w-full h-full object-cover transition-transform duration-700" />
                 <div className="absolute top-8 left-8 px-6 py-2.5 bg-slate-900/40 backdrop-blur-3xl rounded-full text-white font-extrabold text-[10px] uppercase tracking-widest border border-white/10">
                   {cause.category}
                 </div>

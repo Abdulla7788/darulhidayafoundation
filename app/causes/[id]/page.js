@@ -110,8 +110,13 @@ export default function CauseDetail({ params }) {
             <h2 className="text-4xl font-heading font-extrabold text-slate-900 uppercase italic tracking-tighter border-b-4 border-slate-900 pb-6 inline-block">Impact Gallery</h2>
             <div className="grid grid-cols-1 gap-12">
                {cause.gallery.map((img, i) => (
-                 <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} className="aspect-[16/9] rounded-[4rem] overflow-hidden shadow-4xl group relative bg-slate-50 flex items-center justify-center">
-                    <img src={img} className="w-full h-full object-contain transition-transform duration-700" alt="Work" />
+                 <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} className="aspect-[16/9] rounded-2xl overflow-hidden shadow-4xl group relative bg-slate-50 flex items-center justify-center">
+                    <img 
+                      src={img} 
+                      className="w-full h-full object-cover transition-transform duration-700" 
+                      style={{ objectPosition: img.includes('pic7.jpeg') ? 'center 30%' : 'center' }}
+                      alt="Work" 
+                    />
                  </motion.div>
                ))}
             </div>
