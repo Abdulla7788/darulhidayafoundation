@@ -82,7 +82,7 @@ const Footer = () => {
                  <div className="w-10 h-10 rounded-full bg-emerald-600/10 border border-emerald-600/20 flex items-center justify-center shrink-0 group-hover:bg-emerald-600 transition-colors">
                     <Phone className="w-5 h-5 text-emerald-500 group-hover:text-white" />
                  </div>
-                 <span className="text-xs font-heading font-extrabold uppercase tracking-widest text-emerald-500 italic">Chairman: +91 84648 16914</span>
+                 <span className="text-xs font-heading font-extrabold uppercase tracking-widest text-emerald-500 italic">Chairman: +91 84648 16913</span>
               </li>
            </ul>
         </div>

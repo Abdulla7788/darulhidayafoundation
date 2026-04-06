@@ -54,7 +54,7 @@ export default function Contact() {
             {[
               { icon: MapPin, title: 'Main Office', detail: 'D. No: 1-1 Mattampally (V/M), Suryapet 508204' },
               { icon: Phone, title: 'Foundation Helpline', detail: '+91 98664 55800' },
-              { icon: Phone, title: 'Chairman Office', detail: '+91 84648 169139' },
+              { icon: Phone, title: 'Chairman Office', detail: '+91 84648 16913' },
               { icon: Mail, title: 'Official Email', detail: 'darulhidayafoundation@gmail.com' },
               { icon: ShieldCheck, title: 'Registration Status', detail: 'Govt Reg. Book IV-04-2025' },
               { icon: Globe, title: 'NGO DARPAN', detail: 'CSR 12A 80G AAFTD0247HE20251' },

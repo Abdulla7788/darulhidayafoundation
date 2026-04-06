@@ -1,14 +1,62 @@
 'use client';
-import { motion, useScroll, useSpring } from 'framer-motion';
-import { Play, ArrowRight, Heart, Users, Globe } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
+import { Play, ArrowRight, Heart, Users, Globe, X } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const [showCover, setShowCover] = useState(true);
+
+  useEffect(() => {
+    if (showCover) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showCover]);
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }} className="relative bg-white">
+    <>
+      <AnimatePresence>
+        {showCover && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.6, ease: "easeInOut" } }}
+            className="fixed inset-0 z-[200] bg-[#010409]/90 backdrop-blur-md flex items-center justify-center p-6 md:p-12"
+          >
+            <div className="relative w-full max-w-6xl aspect-[1.3/1] md:aspect-[1.8/1] rounded-3xl overflow-hidden shadow-2xl bg-white border-4 border-white">
+              {/* The Cover Image */}
+              <motion.img
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8 }}
+                src="/cover.jpeg"
+                alt="Cover Page"
+                className="w-full h-full object-contain bg-white"
+              />
+
+              {/* X-Mark Close Button */}
+              <motion.button
+                whileHover={{ scale: 1.1, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setShowCover(false)}
+                className="absolute top-4 right-4 z-[210] w-12 h-12 bg-slate-900 shadow-2xl rounded-full flex items-center justify-center text-white hover:bg-emerald-700 transition-all group border-2 border-white/20"
+                aria-label="Close Cover Page"
+              >
+                <X className="w-6 h-6 group-hover:scale-110 transition-transform" />
+              </motion.button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }} className="relative bg-white">
       {/* 🛡️ SECURITY: Scroll progress visualization (Client-side effect only) */}
       <motion.div className="fixed top-0 left-0 right-0 h-1 bg-emerald-600 origin-left z-[100]" style={{ scaleX }} />
 
@@ -149,6 +197,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </motion.div>
+      </motion.div>
+    </>
   );
 }

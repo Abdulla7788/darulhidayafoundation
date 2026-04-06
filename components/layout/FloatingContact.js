@@ -5,7 +5,7 @@ import { Phone, MessageCircle } from 'lucide-react';
 
 const FloatingContact = () => {
     const whatsappNo = "919866455800";
-    const chairmanNo = "9184648169139";
+    const chairmanNo = "918464816913";
 
     return (
         <div className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-40 flex flex-col space-y-3 md:space-y-4">
