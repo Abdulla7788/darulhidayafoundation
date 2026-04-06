@@ -17,7 +17,7 @@ const campaigns = [
     id: 2,
     title: 'Community Infrastructure Hub',
     category: 'Sadaqah Jariyah',
-    image: '/gallery/pic10.jpeg',
+    image: '/gallery/pic13.jpeg',
     desc: 'Developing permanent community assets, including site leveling and structural builds for long-term village empowerment.'
   },
   {

@@ -154,7 +154,7 @@ export default function Home() {
               },
               { 
                 id: 4,
-                img: "/campaign_build.jpeg", 
+                img: "/gallery/pic13.jpeg", 
                 title: "Infrastructure Build", 
                 desc: "Creating permanent community assets and sustainable water systems.",
                 tag: "Sadaqah Jariyah"
