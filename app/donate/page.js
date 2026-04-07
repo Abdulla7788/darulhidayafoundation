@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ShieldCheck, Heart, User, Mail, Globe, ArrowRight, Phone } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ShieldCheck, Heart, User, Mail, Globe, ArrowRight, Phone, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export default function DonatePortal() {
@@ -10,8 +10,10 @@ export default function DonatePortal() {
     name: '', 
     email: '', 
     phone: '', 
+    amount: '1000',
     type: 'General Zakat Fund' 
   });
+  const [showModal, setShowModal] = useState(false);
 
   const handlePay = (e) => {
     e.preventDefault();
@@ -22,8 +24,13 @@ export default function DonatePortal() {
       return;
     }
 
+    setShowModal(true);
+  };
+
+  const confirmRedirect = () => {
     // Generating a session-based secure-token for access control
     sessionStorage.setItem('donor_authenticated', 'true');
+    sessionStorage.setItem('donation_amount', formData.amount);
     router.push('/donate/scanner');
   };
 
@@ -114,6 +121,37 @@ export default function DonatePortal() {
                  </div>
               </div>
 
+              <div className="space-y-6">
+                 <label className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 italic">Donation Amount (₹)</label>
+                 <div className="grid grid-cols-3 gap-4">
+                    {[500, 1000, 2000, 5000].map((amt) => (
+                       <button
+                          key={amt}
+                          type="button"
+                          onClick={() => setFormData({...formData, amount: amt.toString()})}
+                          className={`py-5 rounded-[2rem] font-bold italic transition-all border-2 ${
+                             formData.amount === amt.toString() 
+                             ? 'bg-emerald-700 text-white border-emerald-700 shadow-2xl scale-105' 
+                             : 'bg-slate-50 text-slate-600 border-slate-100 hover:bg-emerald-50/50 hover:border-emerald-200'
+                          }`}
+                       >
+                          ₹{amt}
+                       </button>
+                    ))}
+                    <div className="relative col-span-2">
+                        <span className="absolute left-6 top-1/2 -translate-y-1/2 font-bold text-slate-300 italic">₹</span>
+                        <input 
+                          required
+                          type="text" 
+                          placeholder="Custom Amount"
+                          value={formData.amount}
+                          onChange={(e) => setFormData({...formData, amount: e.target.value.replace(/\D/g, '')})}
+                          className="w-full pl-12 pr-8 py-5 bg-slate-50 rounded-3xl border border-slate-100 outline-none focus:ring-4 focus:ring-emerald-700/10 font-bold italic transition-all" 
+                        />
+                    </div>
+                 </div>
+              </div>
+
               <div className="space-y-4">
                  <label className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 italic">Donation Purpose</label>
                  <div className="relative">
@@ -129,6 +167,8 @@ export default function DonatePortal() {
                     </select>
                  </div>
               </div>
+
+
 
               <button type="submit" className="w-full py-6 rounded-full bg-slate-900 text-white font-extrabold shadow-2xl hover:bg-emerald-800 transition-all flex items-center justify-center space-x-6 uppercase tracking-widest italic group">
                  <span>Pay Donation</span>
@@ -185,6 +225,61 @@ export default function DonatePortal() {
           </div>
         </motion.div>
       </section>
+      {/* 🛡️ SECURITY: RED NOTICE MODAL */}
+      <AnimatePresence>
+        {showModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+            <motion.div 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              exit={{ opacity: 0 }}
+              onClick={() => setShowModal(false)}
+              className="absolute inset-0 bg-slate-950/80 backdrop-blur-xl" 
+            />
+            
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="bg-white rounded-[3rem] p-12 max-w-xl w-full relative z-10 shadow-4xl border border-red-100 overflow-hidden"
+            >
+               <div className="absolute top-0 right-0 w-32 h-32 bg-red-600/5 -translate-y-1/2 translate-x-1/2 rounded-full" />
+               
+               <div className="flex flex-col items-center text-center space-y-8">
+                  <div className="w-20 h-20 bg-red-100 rounded-3xl flex items-center justify-center">
+                     <AlertCircle className="w-10 h-10 text-red-600" />
+                  </div>
+                  
+                  <div className="space-y-4">
+                     <h2 className="text-3xl font-heading font-extrabold text-slate-900 uppercase italic tracking-tighter">
+                        Gateway <span className="text-red-600">Maintenance</span>
+                     </h2>
+                     <p className="text-slate-500 font-bold text-sm uppercase italic leading-relaxed">
+                        payment gate wat not working  please go through qr <br/>
+                        <span className="text-red-700 underline underline-offset-4">Please share a screenshot of the transaction with our helpline for your official receipt.</span>
+                     </p>
+                  </div>
+
+                  <div className="w-full flex flex-col space-y-4 pt-4">
+                     <button 
+                       onClick={confirmRedirect}
+                       className="w-full py-6 bg-slate-900 text-white rounded-full font-extrabold shadow-xl hover:bg-emerald-700 transition-all uppercase tracking-widest italic flex items-center justify-center space-x-4 group"
+                     >
+                        <span>Proceed to QR Scanner</span>
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                     </button>
+                     <button 
+                       onClick={() => setShowModal(false)}
+                       className="text-[10px] font-bold text-slate-400 uppercase tracking-widest hover:text-red-600 transition-colors"
+                     >
+                        Go back and edit details
+                     </button>
+                  </div>
+               </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

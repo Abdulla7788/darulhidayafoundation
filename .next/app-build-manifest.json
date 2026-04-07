@@ -11,10 +11,15 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/causes/[id]/page": [
+    "/donate/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/causes/[id]/page.js"
+      "static/chunks/app/donate/page.js"
+    ],
+    "/donate/scanner/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/donate/scanner/page.js"
     ]
   }
 }

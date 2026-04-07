@@ -8,6 +8,7 @@ import Link from 'next/link';
 export default function ScannerPortal() {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [amount, setAmount] = useState('');
 
   useEffect(() => {
     // 🛡️ SECURITY: Guarding the Secure QR Node from unauthorized access
@@ -16,6 +17,7 @@ export default function ScannerPortal() {
        router.push('/donate');
     } else {
        setIsAuthenticated(true);
+       setAmount(sessionStorage.getItem('donation_amount') || '0');
        // Optional: Clear token after access to prevent multi-use if desired
        // sessionStorage.removeItem('donor_authenticated');
     }
@@ -42,9 +44,10 @@ export default function ScannerPortal() {
              </div>
              <div>
                 <h2 className="text-3xl font-heading font-extrabold text-white uppercase italic tracking-tighter mb-4">Secure Donation <span className="text-emerald-500">Node</span></h2>
-                <div className="px-6 py-2 bg-emerald-600/10 rounded-full border border-emerald-600/20 text-emerald-500 font-bold text-xs tracking-widest uppercase italic shadow-sm">
-                   Payment Gateway in Progress, Please donate with QR scanner
-                </div>
+                 <div className="px-6 py-4 bg-red-600/10 rounded-2xl border border-red-600/20 text-red-500 font-bold text-xs tracking-widest uppercase italic shadow-sm">
+                    {amount !== '0' ? `Contributing ₹${amount}` : 'Gateway Status: Maintenance'}
+                    <p className="mt-2 text-[10px] opacity-80 leading-relaxed">Payment gateway not working. Please scan the QR below to complete your donation.</p>
+                 </div>
              </div>
           </div>
 
