@@ -91,10 +91,11 @@ export default function GalleryManager() {
         fetchItems();
         setTimeout(() => setStatus({ type: '', message: '' }), 3000);
       } else {
-        throw new Error('Upload failed');
+        const errorData = await res.json();
+        throw new Error(errorData.error || 'Upload failed');
       }
     } catch (err) {
-      setStatus({ type: 'error', message: 'Error pushing to cloud storage.' });
+      setStatus({ type: 'error', message: err.message || 'Error pushing to cloud storage.' });
     } finally {
       setAdding(false);
     }

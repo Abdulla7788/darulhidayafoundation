@@ -32,8 +32,9 @@ export async function POST(request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Create a unique filename
-    const filename = `${Date.now()}-${file.name.replace(/\s+/g, '-')}`;
+    // Create a unique filename with better sanitization
+    const sanitizedName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+    const filename = `${Date.now()}-${sanitizedName}`;
     const filePath = path.join(uploadDir, filename);
 
     await writeFile(filePath, buffer);
@@ -51,6 +52,7 @@ export async function POST(request) {
 
     return NextResponse.json({ success: true, item: newItem });
   } catch (error) {
+    console.error('Gallery Upload API Error:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
