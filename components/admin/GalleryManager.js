@@ -139,12 +139,13 @@ export default function GalleryManager() {
               onDragLeave={handleDrag}
               onDragOver={handleDrag}
               onDrop={handleDrop}
-              className={`relative w-full max-w-2xl aspect-video rounded-[2rem] border-2 border-dashed transition-all flex flex-col items-center justify-center p-8 overflow-hidden mb-8 ${
+              onClick={() => fileInputRef.current?.click()}
+              className={`relative w-full max-w-2xl aspect-video rounded-[2rem] border-2 border-dashed transition-all flex flex-col items-center justify-center p-8 overflow-hidden mb-8 cursor-pointer ${
                 dragActive ? 'border-emerald-500 bg-emerald-50/50' : 'border-slate-200 bg-white hover:border-emerald-400'
               }`}
             >
               {preview ? (
-                <div className="absolute inset-0 w-full h-full group">
+                <div className="absolute inset-0 w-full h-full group" onClick={(e) => e.stopPropagation()}>
                   <img src={preview} alt="Preview" className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <button 
@@ -158,18 +159,16 @@ export default function GalleryManager() {
                 </div>
               ) : (
                 <>
-                  <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-6">
+                  <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-6 pointer-events-none">
                     <UploadCloud className={`w-10 h-10 ${dragActive ? 'text-emerald-600' : 'text-slate-300'}`} />
                   </div>
-                  <h4 className="text-sm font-bold uppercase tracking-widest text-slate-900 mb-2">Drag & Drop Image</h4>
-                  <p className="text-[10px] text-slate-400 font-medium uppercase tracking-widest mb-6">or click the plus below</p>
-                  <button 
-                    type="button"
-                    onClick={() => fileInputRef.current?.click()}
-                    className="p-4 bg-slate-900 text-white rounded-full hover:bg-emerald-600 shadow-2xl transition-all"
-                  >
+                  <h4 className="text-sm font-bold uppercase tracking-widest text-slate-900 mb-2 pointer-events-none text-center">Tap or Drag Image Here</h4>
+                  <p className="text-[10px] text-slate-400 font-medium uppercase tracking-widest mb-6 pointer-events-none text-center">Supported on all mobile devices</p>
+                  
+                  <div className="p-4 bg-slate-900 text-white rounded-full shadow-2xl transition-all group-hover:bg-emerald-600">
                     <Plus className="w-6 h-6" />
-                  </button>
+                  </div>
+
                   <input 
                     ref={fileInputRef}
                     type="file" 
