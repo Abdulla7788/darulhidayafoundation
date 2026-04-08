@@ -1,21 +1,31 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
-import { writeFile } from 'fs/promises';
+import { v2 as cloudinary } from 'cloudinary';
 
-const dataPath = path.join(process.cwd(), 'data', 'gallery.json');
-const uploadDir = path.join(process.cwd(), 'public', 'gallery');
+// 🛡️ SECURITY: Cloudinary Config (Server-side Only)
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-// Ensure upload directory exists
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
+const GALLERY_TAG = 'darulhidaya_gallery';
 
 export async function GET() {
   try {
-    const data = fs.readFileSync(dataPath, 'utf8');
-    return NextResponse.json(JSON.parse(data));
+    // 🛡️ Fetch directly from Cloudinary (No local database needed)
+    const { resources } = await cloudinary.api.resources_by_tag(GALLERY_TAG, {
+      max_results: 100,
+      context: true
+    });
+
+    const items = resources.map(res => ({
+      img: res.secure_url,
+      public_id: res.public_id
+    }));
+
+    return NextResponse.json(items);
   } catch (error) {
+    console.error('Cloudinary GET Error:', error);
     return NextResponse.json([], { status: 200 });
   }
 }
@@ -29,55 +39,60 @@ export async function POST(request) {
       return NextResponse.json({ success: false, error: 'No file uploaded' }, { status: 400 });
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    // Convert file to buffer
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
 
-    // Create a unique filename with better sanitization
-    const sanitizedName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-    const filename = `${Date.now()}-${sanitizedName}`;
-    const filePath = path.join(uploadDir, filename);
+    // 🛡️ Upload to Cloudinary
+    return new Promise((resolve) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        { 
+          tags: [GALLERY_TAG],
+          folder: 'darulhidaya'
+        },
+        (error, result) => {
+          if (error) {
+            console.error('Cloudinary Upload Error:', error);
+            resolve(NextResponse.json({ success: false, error: error.message }, { status: 500 }));
+          } else {
+            resolve(NextResponse.json({ 
+                success: true, 
+                item: { 
+                    img: result.secure_url, 
+                    public_id: result.public_id 
+                } 
+            }));
+          }
+        }
+      );
+      uploadStream.end(buffer);
+    });
 
-    await writeFile(filePath, buffer);
-
-    // Update gallery.json
-    const data = fs.readFileSync(dataPath, 'utf8');
-    const gallery = JSON.parse(data);
-    
-    const newItem = {
-      img: `/gallery/${filename}`
-    };
-    
-    gallery.push(newItem);
-    fs.writeFileSync(dataPath, JSON.stringify(gallery, null, 2));
-
-    return NextResponse.json({ success: true, item: newItem });
   } catch (error) {
-    console.error('Gallery Upload API Error:', error);
+    console.error('Gallery API Error:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
 
 export async function DELETE(request) {
   try {
-    const { index } = await request.json();
-    const data = fs.readFileSync(dataPath, 'utf8');
-    let gallery = JSON.parse(data);
-    
-    const itemToDelete = gallery[index];
-    
-    // Optional: Delete the file from public/gallery as well
-    if (itemToDelete && itemToDelete.img.startsWith('/gallery/')) {
-        const filePath = path.join(process.cwd(), 'public', itemToDelete.img);
-        if (fs.existsSync(filePath)) {
-            fs.unlinkSync(filePath);
-        }
+    const { public_id } = await request.json();
+
+    if (!public_id) {
+      return NextResponse.json({ success: false, error: 'No public_id provided' }, { status: 400 });
     }
 
-    gallery.splice(index, 1);
+    // 🛡️ Delete from Cloudinary
+    const result = await cloudinary.uploader.destroy(public_id);
     
-    fs.writeFileSync(dataPath, JSON.stringify(gallery, null, 2));
-    return NextResponse.json({ success: true });
+    if (result.result === 'ok') {
+        return NextResponse.json({ success: true });
+    } else {
+        throw new Error('Cloudinary deletion failed');
+    }
+
   } catch (error) {
+    console.error('Cloudinary DELETE Error:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }

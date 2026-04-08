@@ -101,14 +101,14 @@ export default function GalleryManager() {
     }
   };
 
-  const handleDelete = async (index) => {
+  const handleDelete = async (public_id) => {
     if (!confirm('Are you sure you want to delete this photographic record?')) return;
     
     try {
       const res = await fetch('/api/gallery', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ index })
+        body: JSON.stringify({ public_id })
       });
       
       if (res.ok) {
@@ -218,7 +218,7 @@ export default function GalleryManager() {
                   <img src={item.img} alt="" className="w-full h-full object-cover" onError={(e) => e.target.src = 'https://via.placeholder.com/150?text=Error'}/>
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <button 
-                        onClick={() => handleDelete(idx)}
+                        onClick={() => handleDelete(item.public_id)}
                         className="p-3 rounded-xl bg-white/20 backdrop-blur-md text-white hover:bg-red-500 transition-all"
                     >
                         <Trash2 className="w-4 h-4" />
