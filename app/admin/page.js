@@ -1,6 +1,8 @@
 import { verifyToken } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
+import GalleryManager from '@/components/admin/GalleryManager';
+import LogoutButton from '@/components/admin/LogoutButton';
 
 /**
  * 🔒 SECURITY: Production-Grade Admin Guard
@@ -15,8 +17,8 @@ export default async function AdminDashboard() {
   const payload = await verifyToken(token);
 
   if (!payload || payload.role !== 'admin') {
-    // 🛡️ SECURITY: Unauthorized access attempts are redirected to an unguessable login node.
-    redirect('/auth/restricted');
+    // 🛡️ SECURITY: Unauthorized access attempts are redirected to the secure gate.
+    redirect('/auth/login');
   }
 
   return (
@@ -26,8 +28,11 @@ export default async function AdminDashboard() {
           <h1 className="text-6xl font-heading font-extrabold text-slate-900 italic uppercase">Secure Control Center</h1>
           <p className="text-emerald-700 font-bold tracking-widest text-[10px] uppercase italic mt-4 opacity-70">Authenticated Superuser: {payload.email}</p>
         </div>
-        <div className="px-6 py-3 bg-emerald-100 rounded-full border border-emerald-600/30 text-emerald-800 text-xs font-bold uppercase trekking-widest animate-pulse">
-          🛡️ SYSTEM STATUS: SECURE
+        <div className="flex flex-col items-end gap-4">
+          <div className="px-6 py-3 bg-emerald-100 rounded-full border border-emerald-600/30 text-emerald-800 text-xs font-bold uppercase trekking-widest animate-pulse">
+            🛡️ SYSTEM STATUS: SECURE
+          </div>
+          <LogoutButton />
         </div>
       </div>
 
@@ -44,6 +49,10 @@ export default async function AdminDashboard() {
           <h3 className="text-2xl font-heading font-bold mb-6">Security Logs</h3>
           <p className="text-slate-500 font-sans italic text-sm">Real-time monitoring of failed login attempts & suspicious activity.</p>
         </div>
+      </div>
+
+      <div className="mt-24">
+        <GalleryManager />
       </div>
     </div>
   );
